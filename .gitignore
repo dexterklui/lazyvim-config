@@ -6,3 +6,9 @@ debug
 foo.*
 *.log
 data
+
+filetype.vim
+plugin
+ftplugin
+syntax
+after
