@@ -3,3 +3,5 @@
 -- Add any additional options here
 
 vim.g.markdown_folding = 1
+
+vim.opt_global.path:append({ "**" })

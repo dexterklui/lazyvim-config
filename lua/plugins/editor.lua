@@ -1,4 +1,27 @@
 return {
+  {
+    "stevearc/aerial.nvim", --tagbar like window
+    opts = {},
+    -- Optional dependencies
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons",
+      {
+        "telescope.nvim",
+        config = function(_)
+          require("telescope").load_extension("aerial")
+        end,
+        keys = {
+          { "<leader>st", "<cmd>Telescope aerial<CR>", desc = "Tags" },
+        },
+        opts = {},
+      },
+    },
+    keys = {
+      { "<leader>;", "<cmd>AerialToggle!<CR>", desc = "Tagbar (Aerial)" },
+    },
+  },
+
   -- Use <tab> for completion and snippets (supertab)
   -- first: disable default <tab> and <s-tab> behavior in LuaSnip
   {
