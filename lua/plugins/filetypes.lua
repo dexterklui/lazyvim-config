@@ -1,4 +1,5 @@
 return {
+  -- Markdown
   {
     "iamcco/markdown-preview.nvim",
     build = "cd app && npm install",
@@ -6,5 +7,11 @@ return {
       vim.g.mkdp_filetypes = { "markdown" }
     end,
     ft = "markdown",
+  },
+
+  -- HTML
+  {
+    "rstacruz/sparkup",
+    ft = "html",
   },
 }
