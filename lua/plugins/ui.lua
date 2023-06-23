@@ -22,4 +22,28 @@ return {
       },
     },
   },
+  {
+    "aserowy/tmux.nvim",
+    config = function(_)
+      return require("tmux").setup()
+    end,
+    opt = {
+      copy_sync = {
+        sync_clipboard = false,
+      },
+      resize = {
+        enable_default_keybindings = false,
+      },
+    },
+    keys = {
+      { "<C-h>", "<cmd>lua require'tmux'.move_left()<cr>", desc = "Go to left window" },
+      { "<C-j>", "<cmd>lua require'tmux'.move_bottom()<cr>", desc = "Go to lower window" },
+      { "<C-k>", "<cmd>lua require'tmux'.move_top()<cr>", desc = "Go to upper window" },
+      { "<C-l>", "<cmd>lua require'tmux'.move_right()<cr>", desc = "Go to right window" },
+      { "<c-left>", "<cmd>lua require('tmux').resize_left()<cr>", desc = "Resize window to left" },
+      { "<c-down>", "<cmd>lua require('tmux').resize_bottom()<cr>", desc = "Resize window to down" },
+      { "<c-up>", "<cmd>lua require('tmux').resize_top()<cr>", desc = "Resize window to up" },
+      { "<c-right>", "<cmd>lua require('tmux').resize_right()<cr>", desc = "Resize window to right" },
+    },
+  },
 }
