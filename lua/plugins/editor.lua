@@ -12,7 +12,7 @@ return {
           require("telescope").load_extension("aerial")
         end,
         keys = {
-          { "<leader>st", "<cmd>Telescope aerial<CR>", desc = "Tags" },
+          { "<leader>sA", "<cmd>Telescope aerial<CR>", desc = "Tags" },
         },
         opts = {},
       },

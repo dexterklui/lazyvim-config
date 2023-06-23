@@ -5,3 +5,4 @@
 vim.g.markdown_folding = 1
 
 vim.opt_global.path:append({ "**" })
+vim.opt.fillchars = { fold = " " }
