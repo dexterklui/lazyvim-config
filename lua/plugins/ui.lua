@@ -57,4 +57,34 @@ return {
       { "<leader>uk", "<cmd>ColorizerToggle<cr>", desc = "Colorizer toggle" },
     },
   },
+  {
+    "s1n7ax/nvim-window-picker",
+    -- Very useful to jump to popup message / error box to prevent them from fading away
+    -- Also useful integration with neo-tree to choose which window to open file
+    name = "window-picker",
+    event = "VeryLazy",
+    version = "2.*",
+    config = function()
+      require("window-picker").setup({
+        hint = "floating-big-letter",
+        show_prompt = false,
+        filter_rules = {
+          bo = {
+            filetype = {},
+            buftype = {},
+          },
+        },
+      })
+      local get_win_id = require("window-picker").pick_window
+      local pick_window = function()
+        vim.fn.win_gotoid(get_win_id())
+      end
+      vim.keymap.set("n", "<leader>wp", pick_window, { desc = "Pick window" })
+    end,
+    keys = {
+      {
+        "<leader>wp",
+      },
+    },
+  },
 }
