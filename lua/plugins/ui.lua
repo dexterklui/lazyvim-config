@@ -23,16 +23,14 @@ return {
   },
   {
     "aserowy/tmux.nvim",
-    config = function(_)
-      return require("tmux").setup({
-        copy_sync = {
-          sync_clipboard = false,
-        },
-        resize = {
-          enable_default_keybindings = false,
-        },
-      })
-    end,
+    opts = {
+      copy_sync = {
+        sync_clipboard = false,
+      },
+      resize = {
+        enable_default_keybindings = false,
+      },
+    },
     keys = {
       { "<C-h>", "<cmd>lua require'tmux'.move_left()<cr>", desc = "Go to left window" },
       { "<C-j>", "<cmd>lua require'tmux'.move_bottom()<cr>", desc = "Go to lower window" },
