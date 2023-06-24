@@ -15,3 +15,4 @@ return {
     ft = "html",
   },
 }
+-- vi: fdm=indent fdl=1

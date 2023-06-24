@@ -21,7 +21,12 @@ return {
       { "<leader>;", "<cmd>AerialToggle!<CR>", desc = "Tagbar (Aerial)" },
     },
   },
+  {
+    "tpope/vim-fugitive",
+  },
 
+  -- LazyVim innate plugins custom configs
+  --------------------------------------------------
   -- Use <tab> for completion and snippets (supertab)
   -- first: disable default <tab> and <s-tab> behavior in LuaSnip
   {
@@ -73,8 +78,6 @@ return {
       })
     end,
   },
-
-  {
-    "tpope/vim-fugitive",
-  },
 }
+
+-- vi: fdm=indent fdl=1

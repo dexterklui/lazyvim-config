@@ -12,3 +12,4 @@ return {
     cmd = "Octo",
   },
 }
+-- vi: fdm=indent fdl=1

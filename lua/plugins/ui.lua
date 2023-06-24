@@ -7,7 +7,6 @@ return {
       end
     end,
   },
-
   {
     "telescope.nvim",
     dependencies = {
@@ -27,7 +26,7 @@ return {
     config = function(_)
       return require("tmux").setup()
     end,
-    opt = {
+    opts = {
       copy_sync = {
         sync_clipboard = false,
       },
@@ -49,8 +48,10 @@ return {
 
   {
     "norcalli/nvim-colorizer.lua",
-    opt = {
+    opts = {
       "css",
+      "html",
+      "javascript",
     },
     ft = "css",
     keys = {
@@ -88,3 +89,4 @@ return {
     },
   },
 }
+-- vi: fdm=indent fdl=1
