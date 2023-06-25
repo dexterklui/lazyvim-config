@@ -1,28 +1,55 @@
 return {
   {
     "stevearc/aerial.nvim", --tagbar like window
-    opts = {},
+    config = function(_)
+      require("aerial").setup() -- Don't know why this line is required
+      require("telescope").load_extension("aerial")
+    end,
     -- Optional dependencies
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
       "nvim-tree/nvim-web-devicons",
-      {
-        "telescope.nvim",
-        config = function(_)
-          require("telescope").load_extension("aerial")
-        end,
-        keys = {
-          { "<leader>sA", "<cmd>Telescope aerial<CR>", desc = "Aerial (tagbar-like)" },
-        },
-        opts = {},
-      },
+      "telescope.nvim",
     },
     keys = {
       { "<leader>;", "<cmd>AerialToggle!<CR>", desc = "Tagbar (Aerial)" },
+      { "<leader>sA", "<cmd>Telescope aerial<CR>", desc = "Aerial (tagbar-like)" },
     },
   },
   {
     "tpope/vim-fugitive",
+  },
+  {
+    "natecraddock/workspaces.nvim",
+    config = function(_, opts)
+      require("workspaces").setup(opts)
+      require("telescope").load_extension("workspaces")
+      local which_key = require("which-key")
+      which_key.register({
+        p = {
+          name = "Projects/Workspaces",
+          l = { "<cmd>WorkspacesList<cr>", "List Workspaces" },
+          a = { "<cmd>WorkspacesAdd<cr>", "Add current workspace" },
+          r = { "<cmd>WorkspacesRemove<cr>", "Remove current workspace" },
+        },
+      }, { prefix = "<leader>" })
+    end,
+    opts = {
+      cd_type = "tab",
+      hooks = {
+        open = { "Telescope find_files" },
+      },
+    },
+    dependencies = {
+      "telescope.nvim",
+    },
+    keys = {
+      { "<leader>sp", "<cmd>Telescope workspaces<cr>", desc = "Places (Workspaces)" },
+      { "<leader>pl" },
+      { "<leader>pa" },
+      { "<leader>pr" },
+    },
+    event = "VeryLazy",
   },
 }
 

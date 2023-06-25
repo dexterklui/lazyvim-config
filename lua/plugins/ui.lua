@@ -62,23 +62,24 @@ return {
     name = "window-picker",
     event = "VeryLazy",
     version = "2.*",
-    config = function()
-      require("window-picker").setup({
-        hint = "floating-big-letter",
-        show_prompt = false,
-        filter_rules = {
-          bo = {
-            filetype = {},
-            buftype = {},
-          },
-        },
-      })
+    config = function(_, opts)
+      require("window-picker").setup(opts)
       local get_win_id = require("window-picker").pick_window
       local pick_window = function()
         vim.fn.win_gotoid(get_win_id())
       end
       vim.keymap.set("n", "<leader>wp", pick_window, { desc = "Pick window" })
     end,
+    opts = {
+      hint = "floating-big-letter",
+      show_prompt = false,
+      filter_rules = {
+        bo = {
+          filetype = {},
+          buftype = {},
+        },
+      },
+    },
     keys = {
       {
         "<leader>wp",
