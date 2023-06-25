@@ -3,3 +3,6 @@
 -- Add any additional keymaps here
 
 vim.cmd.command({ "Master", "e ~/master.dqn" })
+
+-- To close live-server, execute something like `:bd term*live`
+vim.cmd.command({ "Live", "vsp term://live-server | close" })
