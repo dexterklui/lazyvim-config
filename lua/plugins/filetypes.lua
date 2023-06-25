@@ -16,7 +16,7 @@ return {
   },
   {
     "Jezda1337/nvim-html-css", --- Like HTML-CSS Support plugin for VSCode
-    enabled = true,
+    enabled = (vim.env.NVIM_HTML_CSS ~= nil),
     init = function()
       require("html-css"):setup()
     end,
@@ -33,8 +33,11 @@ return {
               },
               style_sheets = {
                 "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css",
-                -- "./style.css",
-                -- "index.css",
+                "./style.css",
+                "./index.css",
+                "assets/style/stylesheet.css",
+                "assets/style/index.css",
+                "assets/style/style.css",
               },
             },
           })
