@@ -1,0 +1,6 @@
+return {
+  "rose-pine/neovim",
+  name = "rose-pine",
+  event = "VeryLazy",
+  priority = "1000",
+}
