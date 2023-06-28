@@ -51,6 +51,10 @@ return {
     },
     event = "VeryLazy",
   },
+  {
+    "mg979/vim-visual-multi",
+    event = "VeryLazy",
+  },
 }
 
 -- vi: fdm=indent fdl=1

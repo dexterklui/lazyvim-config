@@ -32,7 +32,9 @@ return {
                 "html", -- default
               },
               style_sheets = {
-                "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css",
+                "/media/mikeX/Library/bootstrap-5.3.0-dist/css/bootstrap.min.css",
+                "/media/mikeX/Library/animate.css",
+
                 "./style.css",
                 "./index.css",
                 "assets/style/stylesheet.css",
