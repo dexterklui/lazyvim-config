@@ -44,6 +44,7 @@ return {
             },
           })
         end,
+        commit = "b4ea468395438f864020ac4acb23a79f13ff",
       },
     },
   },
