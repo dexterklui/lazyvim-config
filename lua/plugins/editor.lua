@@ -35,7 +35,7 @@ return {
       }, { prefix = "<leader>" })
     end,
     opts = {
-      cd_type = "tab",
+      cd_type = "local",
       hooks = {
         open = { "Telescope find_files" },
       },
@@ -54,6 +54,29 @@ return {
   {
     "mg979/vim-visual-multi",
     event = "VeryLazy",
+    init = function()
+      vim.g.VM_leader = "<leader>m"
+      local which_key = require("which-key")
+      which_key.register({
+        m = {
+          name = "Multi-visual",
+        },
+      }, { prefix = "<leader>" })
+      which_key.register({
+        m = {
+          name = "Multi-visual",
+        },
+      }, { prefix = "<leader>", mode = "v" })
+
+      local VM_maps = {
+        ["Add Cursor Down"] = "<m-j>",
+        ["Add Cursor Up"] = "<m-k>",
+      }
+      vim.g.VM_maps = VM_maps
+    end,
+  },
+  keys = {
+    { "<leader>m" },
   },
 }
 
