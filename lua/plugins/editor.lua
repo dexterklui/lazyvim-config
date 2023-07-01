@@ -77,6 +77,10 @@ return {
   },
   keys = {
     { "<leader>m" },
+    { "<m-j>", "<plug>(VM-Add-Cursor-Down)", desc = "Add multi cursor down" },
+    { "<m-k>", "<plug>(VM-Add-Cursor-Up)", desc = "Add multi cursor up" },
+    { "<m-s-h>", "<plug>(VM-Select-h)", desc = "Multi select left" },
+    { "<m-s-l>", "<plug>(VM-Select-l)", desc = "Multi select right" },
   },
 }
 
