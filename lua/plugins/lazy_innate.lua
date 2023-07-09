@@ -40,21 +40,32 @@ return {
   },
   { -- Leaving snippet region makes <Tab> no longer jump back in
     "L3MON4D3/LuaSnip",
+    config = function(_, opts)
+      require("luasnip").setup(opts)
+      vim.cmd([[
+        imap <silent><expr> <A-e> luasnip#expandable() ? '<Plug>luasnip-expand-snippet' : '<A-e>'
+        imap <silent><expr> <A-l> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
+        smap <silent><expr> <A-l> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
+      ]])
+    end,
     opts = function(_, opts)
       opts.region_check_events = "InsertEnter" -- Check region leave on entering insert mode
     end,
   },
   { -- Add keymaps to toggle mini.pairs for current buffer
     "echasnovski/mini.pairs",
-    config = {
+    config = function(_, opts)
+      require("mini.pairs").setup(opts)
       vim.keymap.set("n", "<A-p>", function()
         vim.b.minipairs_disable = not vim.b.minipairs_disable
         print("minipair:", not vim.b.minipairs_disable and "enabled" or "disabled")
-      end, { desc = "Toggle minipairs in local buffer" }),
+      end, { desc = "Toggle minipairs in local buffer" })
       vim.keymap.set("i", "<A-p>", function()
         vim.b.minipairs_disable = not vim.b.minipairs_disable
         print("minipair:", not vim.b.minipairs_disable and "enabled" or "disabled")
-      end, { desc = "Toggle minipairs in local buffer" }),
-    },
+      end, { desc = "Toggle minipairs in local buffer" })
+    end,
   },
 }
+
+-- vim: fdm=indent fdl=1
