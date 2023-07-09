@@ -16,6 +16,7 @@ vim.opt.lcs = "tab:‹ ›,trail:·,eol:¬,nbsp:_" -- adjust the text printed by
 vim.opt.list = true -- show "invisible" chars on screen like using :list
 vim.opt.hidden = false -- Such that a buffer is unloaded (no .swp) when abandoned
 vim.opt.wrapscan = false -- disable search through bottom to top
+vim.opt.spelllang = "en_gb" -- British english spell check
 -- Use autocmds to set local options globally
 vim.cmd([[
   aug dqVimOpts

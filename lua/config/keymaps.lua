@@ -37,3 +37,20 @@ map("n", "<m-k>", "<plug>(VM-Add-Cursor-Up)", { desc = "Add multi cursor up" })
 map("n", "<m-s-h>", "<plug>(VM-Select-h)", { desc = "Multi select left" })
 map("n", "<m-s-l>", "<plug>(VM-Select-l)", { desc = "Multi select right" })
 map("n", "<Leader>fd", "<cmd>DiffOrig<CR>", { desc = difforig_desc })
+
+local which_key = require("which-key")
+which_key.register({
+  c = {
+    name = "code/spellcheck",
+  },
+}, { prefix = "<Leader>", mode = "n" })
+which_key.register({
+  s = {
+    name = "check spelling",
+    e = { "<CMD>setl spell spelllang=en<CR>", "en (all regions)" },
+    b = { "<CMD>setl spell spelllang=en_gb<CR>", "en_gb (British)" },
+    a = { "<CMD>setl spell spelllang=en<CR>", "en_us (US)" },
+    d = { "<CMD>setl spell spelllang=de_de<CR>", "de_de (Germany)" },
+    ["<space>"] = { "<CMD>setl nospell<CR>", "Turn off spelling check" },
+  },
+}, { prefix = "<leader>c", mode = "n" })
