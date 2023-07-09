@@ -12,3 +12,4 @@ vim.opt.colorcolumn = "+1"
 vim.opt.showbreak = "∥"
 vim.opt.lcs = "tab:‹ ›,trail:·,eol:¬,nbsp:_" -- adjust the text printed by :list
 vim.opt.list = true
+vim.opt.hidden = false -- Such that a buffer is unloaded (no .swp) when abandoned
