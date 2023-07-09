@@ -1,8 +1,9 @@
 return {
-  { -- Unmap i_<CR>
+  {
     "hrsh7th/nvim-cmp",
     opts = function(_, opts)
       local cmp = require("cmp")
+      -- i_<CR> don't pick first menu item when it's not selected
       if opts.mapping == nil then
         opts.mapping = {}
       end
@@ -17,6 +18,7 @@ return {
         s = cmp.mapping.confirm({ select = true }),
         c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
       })
+      -- No preselect menu item
       opts.preselect = cmp.PreselectMode.None
       opts.completion = { completeopt = "menu,menuone,noselect" }
     end,
