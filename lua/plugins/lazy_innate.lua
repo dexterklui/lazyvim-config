@@ -44,4 +44,17 @@ return {
       opts.region_check_events = "InsertEnter" -- Check region leave on entering insert mode
     end,
   },
+  { -- Add keymaps to toggle mini.pairs for current buffer
+    "echasnovski/mini.pairs",
+    config = {
+      vim.keymap.set("n", "<A-p>", function()
+        vim.b.minipairs_disable = not vim.b.minipairs_disable
+        print("minipair:", not vim.b.minipairs_disable and "enabled" or "disabled")
+      end, { desc = "Toggle minipairs in local buffer" }),
+      vim.keymap.set("i", "<A-p>", function()
+        vim.b.minipairs_disable = not vim.b.minipairs_disable
+        print("minipair:", not vim.b.minipairs_disable and "enabled" or "disabled")
+      end, { desc = "Toggle minipairs in local buffer" }),
+    },
+  },
 }
