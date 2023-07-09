@@ -38,4 +38,10 @@ return {
       })
     end,
   },
+  { -- Leaving snippet region makes <Tab> no longer jump back in
+    "L3MON4D3/LuaSnip",
+    opts = function(_, opts)
+      opts.region_check_events = "InsertEnter" -- Check region leave on entering insert mode
+    end,
+  },
 }
