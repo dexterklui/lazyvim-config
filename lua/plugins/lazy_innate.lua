@@ -1,5 +1,5 @@
 return {
-  { "ggandor/flit.nvim", enabled = false },
+  -- { "ggandor/flit.nvim", enabled = false },
   {
     "hrsh7th/nvim-cmp",
     opts = function(_, opts)
