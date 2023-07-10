@@ -1,5 +1,5 @@
 return {
-  {
+  { --stevearc/aerial.nvim
     "stevearc/aerial.nvim", --tagbar like window
     config = function(_)
       require("aerial").setup() -- Don't know why this line is required
@@ -16,10 +16,10 @@ return {
       { "<leader>sA", "<cmd>Telescope aerial<CR>", desc = "Aerial (tagbar-like)" },
     },
   },
-  {
+  { --tpope/vim-fugitive
     "tpope/vim-fugitive",
   },
-  {
+  { --natecraddock/workspaces.nvim
     "natecraddock/workspaces.nvim",
     config = function(_, opts)
       require("workspaces").setup(opts)
@@ -51,7 +51,7 @@ return {
     },
     event = "VeryLazy",
   },
-  {
+  { --mg979/vim-visual-multi
     "mg979/vim-visual-multi",
     event = "VeryLazy",
     init = function()
@@ -83,8 +83,9 @@ return {
       { "<m-s-l>", "<plug>(VM-Select-l)", desc = "Multi select right" },
     },
   },
-  {
+  { --m4xshen/hardtime.nvim
     "m4xshen/hardtime.nvim",
+    enabled = false,
     opts = {
       max_count = 5,
       disabled_filetypes = {

@@ -1,5 +1,5 @@
 return {
-  {
+  { -- folke/which-key.nvim
     "folke/which-key.nvim",
     opts = function(_, opts)
       if require("lazyvim.util").has("noice.nvim") and require("lazyvim.util").has("nvim-notify") then
@@ -7,7 +7,7 @@ return {
       end
     end,
   },
-  {
+  { -- telescope.nvim
     "telescope.nvim",
     dependencies = {
       {
@@ -21,7 +21,7 @@ return {
       },
     },
   },
-  {
+  { -- aserowy/tmux.nvim
     "aserowy/tmux.nvim",
     opts = {
       copy_sync = {
@@ -43,7 +43,7 @@ return {
     },
   },
 
-  {
+  { -- norcalli/nvim-colorizer.lua
     "norcalli/nvim-colorizer.lua",
     opts = {
       "css",
@@ -55,7 +55,7 @@ return {
       { "<leader>uk", "<cmd>ColorizerToggle<cr>", desc = "Colorizer toggle" },
     },
   },
-  {
+  { -- s1n7ax/nvim-window-picker
     "s1n7ax/nvim-window-picker",
     -- Very useful to jump to popup message / error box to prevent them from fading away
     -- Also useful integration with neo-tree to choose which window to open file

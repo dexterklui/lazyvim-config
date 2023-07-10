@@ -1,5 +1,5 @@
 return {
-  { -- <CR> don't commit 1st item when not selected. No preselect menu item.
+  { -- hrsh7th/nvim-cmp -- <CR> don't commit 1st item when not selected. No preselect menu item.
     "hrsh7th/nvim-cmp",
     opts = function(_, opts)
       local cmp = require("cmp")
@@ -23,7 +23,7 @@ return {
       opts.completion = { completeopt = "menu,menuone,noselect" }
     end,
   },
-  { -- auto close neo-tree on file open
+  { -- nvim-neo-tree/neo-tree.nvim -- auto close neo-tree on file open
     "nvim-neo-tree/neo-tree.nvim",
     opts = function(_, opts)
       if opts["event_hadnlers"] == nil then
@@ -38,7 +38,7 @@ return {
       })
     end,
   },
-  { -- Leaving snippet region makes <Tab> no longer jump back in
+  { -- L3MON4D3/LuaSnip -- Leaving snippet region makes <Tab> no longer jump back in
     "L3MON4D3/LuaSnip",
     config = function(_, opts)
       require("luasnip").setup(opts)
@@ -52,7 +52,7 @@ return {
       opts.region_check_events = "InsertEnter" -- Check region leave on entering insert mode
     end,
   },
-  { -- Add keymaps to toggle mini.pairs for current buffer
+  { -- echasnovski/mini.pairs -- Add keymaps to toggle mini.pairs for current buffer
     "echasnovski/mini.pairs",
     config = function(_, opts)
       require("mini.pairs").setup(opts)
@@ -66,7 +66,7 @@ return {
       end, { desc = "Toggle minipairs in local buffer" })
     end,
   },
-  { -- Save jumplist before goto_left/right
+  { -- echasnovski/mini.ai -- Save jumplist before goto_left/right
     "echasnovski/mini.ai",
     opts = function(_, opts)
       if opts.mappings == nil then
@@ -80,7 +80,7 @@ return {
       { "g]", "m'<plug>miniAiRight", remap = true, desc = 'Move to left "around (save to jumplist)"' },
     },
   },
-  {
+  { -- nvim-lualine/lualine.nvim
     "nvim-lualine/lualine.nvim",
     config = function(_, opts)
       require("lualine").setup(opts)
@@ -226,7 +226,7 @@ return {
       "SmiteshP/nvim-navic",
     },
   },
-  { -- override option (depth limit)
+  { -- SmiteshP/nvim-navic -- override option (depth limit)
     "SmiteshP/nvim-navic",
     opts = function()
       return {
