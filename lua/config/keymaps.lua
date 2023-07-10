@@ -40,6 +40,10 @@ vim.api.nvim_create_user_command(
 -- User keymaps {{{1
 --------------------------------------------------
 map("n", "<Leader>fd", "<cmd>DiffOrig<CR>", { desc = difforig_desc })
+vim.keymap.del("n", "<S-h>")
+vim.keymap.del("n", "<S-l>")
+map("n", "<A-h>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
+map("n", "<A-l>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
 
 -- Spell checking
 which_key.register({
