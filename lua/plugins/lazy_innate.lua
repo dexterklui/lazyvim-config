@@ -66,6 +66,20 @@ return {
       end, { desc = "Toggle minipairs in local buffer" })
     end,
   },
+  { -- Save jumplist before goto_left/right
+    "echasnovski/mini.ai",
+    opts = function(_, opts)
+      if opts.mappings == nil then
+        opts.mappings = {}
+      end
+      opts.mappings.goto_left = "<plug>miniAiLeft"
+      opts.mappings.goto_right = "<plug>miniAiRight"
+    end,
+    keys = {
+      { "g[", "m'<plug>miniAiLeft", remap = true, desc = 'Move to left "around (save to jumplist)"' },
+      { "g]", "m'<plug>miniAiRight", remap = true, desc = 'Move to left "around (save to jumplist)"' },
+    },
+  },
 }
 
 -- vim: fdm=indent fdl=1
