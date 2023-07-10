@@ -2,23 +2,8 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
-vim.api.nvim_create_user_command("Master", "e ~/master.dqn", { desc = "edit ~/master.dqn" })
-
--- To close live-server, execute something like `:bd term*live`
-vim.api.nvim_create_user_command("Live", "vsp term://live-server | set bh=hide | close", {
-  desc = [[Create a terminal buffer in the background to run live-server in cwd.
-To close live-server, you may try something like `:bd term*live`]],
-})
-
--- Convenient command to see the difference between the current buffer and the
--- file it was loaded from, thus the changes you made.
-local difforig_desc = "Diffsplit to see unsaved changes"
-vim.api.nvim_create_user_command(
-  "DiffOrig",
-  "vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis",
-  { desc = difforig_desc }
-)
-
+-- function and variables definition {{{1
+--------------------------------------------------
 local function map(mode, lhs, rhs, opts)
   local keys = require("lazy.core.handler").handlers.keys
   ---@cast keys LazyKeysHandler
@@ -32,25 +17,45 @@ local function map(mode, lhs, rhs, opts)
     vim.keymap.set(mode, lhs, rhs, opts)
   end
 end
-map("n", "<m-j>", "<plug>(VM-Add-Cursor-Down)", { desc = "Add multi cursor down" })
-map("n", "<m-k>", "<plug>(VM-Add-Cursor-Up)", { desc = "Add multi cursor up" })
-map("n", "<m-s-h>", "<plug>(VM-Select-h)", { desc = "Multi select left" })
-map("n", "<m-s-l>", "<plug>(VM-Select-l)", { desc = "Multi select right" })
+local which_key = require("which-key")
+
+-- User Commands {{{1
+--------------------------------------------------
+vim.api.nvim_create_user_command("Master", "e ~/master.dqn", { desc = "edit ~/master.dqn" })
+
+-- Run live-server. To terminate it, execute something like `:bd term*live`
+vim.api.nvim_create_user_command("Live", "vsp term://live-server | set bh=hide | close", {
+  desc = [[Create a terminal buffer in the background to run live-server in cwd.
+To close live-server, you may try something like `:bd term*live`]],
+})
+
+-- Diffsplit the current buffer with the original file (see unsaved changes)
+local difforig_desc = "Diffsplit to see unsaved changes"
+vim.api.nvim_create_user_command(
+  "DiffOrig",
+  "vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis",
+  { desc = difforig_desc }
+)
+
+-- User keymaps {{{1
+--------------------------------------------------
 map("n", "<Leader>fd", "<cmd>DiffOrig<CR>", { desc = difforig_desc })
 
-local which_key = require("which-key")
+-- Spell checking
 which_key.register({
   c = {
     name = "code/spellcheck",
+    s = {
+      name = "check spelling",
+      e = { "<CMD>setl spell spelllang=en spl?<CR>", "en (all regions)" },
+      b = { "<CMD>setl spell spelllang=en_gb spl?<CR>", "en_gb (British)" },
+      a = { "<CMD>setl spell spelllang=en spl?<CR>", "en_us (US)" },
+      d = { "<CMD>setl spell spelllang=de_de spl?<CR>", "de_de (Germany)" },
+      ["<space>"] = { "<CMD>setl nospell spell?<CR>", "Turn off spelling check" },
+    },
   },
 }, { prefix = "<Leader>", mode = "n" })
-which_key.register({
-  s = {
-    name = "check spelling",
-    e = { "<CMD>setl spell spelllang=en<CR>", "en (all regions)" },
-    b = { "<CMD>setl spell spelllang=en_gb<CR>", "en_gb (British)" },
-    a = { "<CMD>setl spell spelllang=en<CR>", "en_us (US)" },
-    d = { "<CMD>setl spell spelllang=de_de<CR>", "de_de (Germany)" },
-    ["<space>"] = { "<CMD>setl nospell<CR>", "Turn off spelling check" },
-  },
-}, { prefix = "<leader>c", mode = "n" })
+
+-- Vim modelines {{{1
+--------------------------------------------------
+-- vim: set fdm=marker fdl=0:
