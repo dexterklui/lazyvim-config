@@ -86,5 +86,124 @@ return {
       },
     },
   },
+  { -- modern fold column -- kevinhwang91/nvim-ufo
+    "kevinhwang91/nvim-ufo",
+    -- event = "BufRead",
+    opts = {
+      provider_selector = function()
+        return { "treesitter", "indent" }
+      end,
+      fold_virt_text_handler = function(virtText, lnum, endLnum, width, truncate)
+        local newVirtText = {}
+        local suffix = (" 󱦶 %d "):format(endLnum - lnum)
+        local sufWidth = vim.fn.strdisplaywidth(suffix)
+        local targetWidth = width - sufWidth
+        local curWidth = 0
+        for _, chunk in ipairs(virtText) do
+          local chunkText = chunk[1]
+          local chunkWidth = vim.fn.strdisplaywidth(chunkText)
+          if targetWidth > curWidth + chunkWidth then
+            table.insert(newVirtText, chunk)
+          else
+            chunkText = truncate(chunkText, targetWidth - curWidth)
+            local hlGroup = chunk[2]
+            table.insert(newVirtText, { chunkText, hlGroup })
+            chunkWidth = vim.fn.strdisplaywidth(chunkText)
+            -- str width returned from truncate() may less than 2nd argument, need padding
+            if curWidth + chunkWidth < targetWidth then
+              suffix = suffix .. (" "):rep(targetWidth - curWidth - chunkWidth)
+            end
+            break
+          end
+          curWidth = curWidth + chunkWidth
+        end
+        table.insert(newVirtText, { suffix, "MoreMsg" })
+        return newVirtText
+      end,
+    },
+    config = function(_, opts)
+      -- Keymaps
+      local map = vim.keymap.set
+      map("n", "zR", function()
+        vim.b.fdl = 10
+        require("ufo").openAllFolds()
+      end, { desc = "open all folds (ufo)" })
+      map("n", "zM", function()
+        vim.b.fdl = 0
+        require("ufo").closeAllFolds()
+      end, { desc = "close all folds (ufo)" })
+      map("n", "zr", function()
+        vim.b.fdl = vim.b.fdl + 1
+        require("ufo").closeFoldsWith(vim.b.fdl)
+      end, { desc = "open 1 level fold" }) -- closeAllFolds == closeFoldsWith(0)
+      map("n", "zm", function()
+        if vim.b.fdl > 0 then
+          vim.b.fdl = vim.b.fdl - 1
+        end
+        require("ufo").closeFoldsWith(vim.b.fdl)
+      end, { desc = "close 1 level fold" }) -- closeAllFolds == closeFoldsWith(0)
+      map("n", "zx", function()
+        require("ufo").closeFoldsWith(vim.b.fdl)
+        vim.cmd.normal("10zo") -- XXX: Just open 10 times
+      end, { desc = "Apply foldlevel then open at cursor" }) -- closeAllFolds == closeFoldsWith(0)
+      map("n", "zX", function()
+        require("ufo").closeFoldsWith(vim.b.fdl)
+      end, { desc = "Apply foldlevel then open at cursor" }) -- closeAllFolds == closeFoldsWith(0)
+      map("n", "<leader>k", function()
+        local winid = require("ufo").peekFoldedLinesUnderCursor()
+        if not winid then
+          vim.lsp.buf.hover()
+        end
+      end, { desc = "peek fold / hover" })
+
+      -- Fold options
+      vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+      vim.o.foldcolumn = "1" -- '0' is not bad
+      vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+      vim.o.foldlevelstart = 99
+      vim.o.foldenable = true
+      local dqAugUfo = vim.api.nvim_create_augroup("dqAugUfo", { clear = true })
+      vim.api.nvim_create_autocmd("BufWinEnter", {
+        callback = function()
+          vim.b.fdl = 0
+          if vim.wo.fdl ~= 99 then
+            vim.b.fdl = vim.wo.fdl
+            vim.wo.fdl = 99
+          end
+          vim.wo.fdc = "1"
+          print("actual_fdl: " .. vim.b.fdl)
+        end,
+        group = dqAugUfo,
+        pattern = {
+          "*.html",
+          "*.md",
+          "*.lua",
+          "*.js",
+        },
+      })
+
+      require("ufo").setup(opts)
+    end,
+    dependencies = {
+      { "kevinhwang91/promise-async" },
+      {
+        "luukvbaal/statuscol.nvim",
+        config = function()
+          local builtin = require("statuscol.builtin")
+          require("statuscol").setup({
+            -- foldfunc = "builtin",
+            -- setopt = true,
+            relculright = true,
+            segments = {
+              { text = { builtin.foldfunc }, click = "v:lua.ScFa" },
+              { text = { "%s" }, click = "v:lua.ScSa" },
+              { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
+            },
+          })
+        end,
+      },
+    },
+  },
 }
--- vi: fdm=indent fdl=1
+
+-- vim: fdm=indent fdl=1
