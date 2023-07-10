@@ -1,5 +1,5 @@
 return {
-  {
+  { -- <CR> don't commit 1st item when not selected. No preselect menu item.
     "hrsh7th/nvim-cmp",
     opts = function(_, opts)
       local cmp = require("cmp")

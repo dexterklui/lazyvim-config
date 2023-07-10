@@ -82,6 +82,24 @@ return {
       { "<m-s-l>", "<plug>(VM-Select-l)", desc = "Multi select right" },
     },
   },
+  {
+    "m4xshen/hardtime.nvim",
+    opts = {
+      disabled_filetypes = {
+        "qf",
+        "netrw",
+        "NvimTree",
+        "lazy",
+        "mason",
+        "neo-tree",
+        "help",
+      },
+    },
+    keys = {
+      { "<leader>uh", "<cmd>Hardtime toggle<cr>", desc = "Toggle Hardtime" },
+    },
+    event = "VeryLazy",
+  },
 }
 
 -- vi: fdm=indent fdl=1
