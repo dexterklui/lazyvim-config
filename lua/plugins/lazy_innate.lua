@@ -102,9 +102,64 @@ return {
         t = "TRM",
       }
       vim.g.VM_set_statusline = 0
+      require("which-key").register({
+        t = {
+          name = "Treesitter (winbar)",
+          t = {
+            "<cmd>lua require('lualine').hide({place={'winbar'}, unhide=true,})<cr>",
+            "Enable treesitter (winbar)",
+          },
+          T = {
+            "<cmd>lua require('lualine').hide({place={'winbar'}, unhide=false,})<cr>",
+            "Disable treesitter (winbar)",
+          },
+        },
+      }, { prefix = "<leader>u" })
+      vim.cmd([[
+	      hi NavicIconsFile guibg=#1E2030
+	      hi NavicIconsModule guibg=#1E2030
+	      hi NavicIconsNamespace guibg=#1E2030
+	      hi NavicIconsPackage guibg=#1E2030
+	      hi NavicIconsClass guibg=#1E2030
+	      hi NavicIconsMethod guibg=#1E2030
+	      hi NavicIconsProperty guibg=#1E2030
+	      hi NavicIconsField guibg=#1E2030
+	      hi NavicIconsConstructor guibg=#1E2030
+	      hi NavicIconsEnum guibg=#1E2030
+	      hi NavicIconsInterface guibg=#1E2030
+	      hi NavicIconsFunction guibg=#1E2030
+	      hi NavicIconsVariable guibg=#1E2030
+	      hi NavicIconsConstant guibg=#1E2030
+	      hi NavicIconsString guibg=#1E2030
+	      hi NavicIconsNumber guibg=#1E2030
+	      hi NavicIconsBoolean guibg=#1E2030
+	      hi NavicIconsArray guibg=#1E2030
+	      hi NavicIconsObject guibg=#1E2030
+	      hi NavicIconsKey guibg=#1E2030
+	      hi NavicIconsNull guibg=#1E2030
+	      hi NavicIconsEnumMember guibg=#1E2030
+	      hi NavicIconsStruct guibg=#1E2030
+	      hi NavicIconsEvent guibg=#1E2030
+	      hi NavicIconsOperator guibg=#1E2030
+	      hi NavicIconsTypeParameter guibg=#1E2030
+	      hi NavicText guibg=#1E2030
+	      hi NavicSeparator guibg=#1E2030
+      ]])
     end,
     opts = function(_, opts)
       local icons = require("lazyvim.config").icons
+      opts.options.disabled_filetypes.winbar = {
+        "dashboard",
+        "alpha",
+        "help",
+        "neo-tree",
+        "terminal",
+        "aerial",
+        "qf",
+        "Trouble",
+        "gitcommit",
+        "dqn",
+      }
       opts.sections.lualine_a = {
         function()
           local vminfos = vim.fn["g:VMInfos"]()
@@ -120,7 +175,7 @@ return {
           return mode_map[mode] == nil and mode or mode_map[mode]
         end,
       }
-      opts.sections.lualine_z = { "fileformat", "encoding" }
+      opts.sections.lualine_z = { "encoding", "fileformat" }
       opts.sections.lualine_c = {
         {
           "diagnostics",
@@ -132,7 +187,53 @@ return {
           },
         },
         { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-        { "filename", path = 1, symbols = { modified = "  ", readonly = "", unnamed = "" } },
+        { "filename", path = 1, symbols = { modified = "📝", readonly = "🚫", unnamed = "📛" } },
+      }
+      opts.winbar = {
+        lualine_c = {
+          {
+            function()
+              return "󱘎 "
+            end,
+            color = { fg = "#29CFF0", bg = "#1E2030" },
+            padding = { left = 1, right = 0 },
+          },
+          {
+            function()
+              return require("nvim-navic").get_location()
+            end,
+            cond = function()
+              return package.loaded["nvim-navic"] and require("nvim-navic").is_available()
+            end,
+            color = { fg = "#ffffff", bg = "#1E2030" },
+            padding = { left = 0, right = 1 },
+          },
+        },
+      }
+    end,
+    keys = {
+      {
+        "<leader>ut",
+      },
+      {
+        "<leader>utt",
+      },
+      {
+        "<leader>utT",
+      },
+    },
+    dependencies = {
+      "SmiteshP/nvim-navic",
+    },
+  },
+  { -- override option (depth limit)
+    "SmiteshP/nvim-navic",
+    opts = function()
+      return {
+        separator = " ",
+        highlight = true,
+        depth_limit = 0,
+        icons = require("lazyvim.config").icons.kinds,
       }
     end,
   },

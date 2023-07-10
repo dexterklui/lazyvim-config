@@ -10,6 +10,7 @@ vim.opt_global.path:append({ "**" }) -- allow :find and gf to fuzzy search with 
 vim.opt.fillchars = { fold = " " } -- no more filling chars for folds
 vim.opt.clipboard = "" -- Use vim register
 vim.opt.wrap = true
+vim.opt.scrolloff = 3 -- Lines of context
 vim.opt.colorcolumn = "+1"
 vim.opt.showbreak = "∥" -- leading character that indicate a wrapped line
 vim.opt.lcs = "tab:‹ ›,trail:·,eol:¬,nbsp:_" -- adjust the text printed by :list
