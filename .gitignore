@@ -7,8 +7,4 @@ foo.*
 *.log
 data
 
-filetype.vim
-plugin
-ftplugin
-syntax
-after
+local_plugins/oldvim/*
