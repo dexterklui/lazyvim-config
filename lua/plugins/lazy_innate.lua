@@ -80,6 +80,62 @@ return {
       { "g]", "m'<plug>miniAiRight", remap = true, desc = 'Move to left "around (save to jumplist)"' },
     },
   },
+  {
+    "nvim-lualine/lualine.nvim",
+    config = function(_, opts)
+      require("lualine").setup(opts)
+      vim.g.lualine_mode_map = {
+        n = "N",
+        i = "I",
+        c = "C",
+        cv = "Ex",
+        v = "V",
+        V = "V.L",
+        [""] = "^V",
+        s = "S",
+        S = "S.L",
+        [""] = "^S",
+        ix = "i^X",
+        ic = "i^N",
+        r = "<Enter>",
+        rm = "--more--",
+        t = "TRM",
+      }
+      vim.g.VM_set_statusline = 0
+    end,
+    opts = function(_, opts)
+      local icons = require("lazyvim.config").icons
+      opts.sections.lualine_a = {
+        function()
+          local vminfos = vim.fn["g:VMInfos"]()
+          if vminfos and vminfos.status ~= nil then
+            local result = "VM " .. string.gsub(vminfos.ratio, " ", "")
+            for i = 1, #vminfos.patterns do
+              result = result .. " /" .. vminfos.patterns[i]
+            end
+            return result
+          end
+          local mode_map = vim.g.lualine_mode_map
+          local mode = vim.fn.mode(true)
+          return mode_map[mode] == nil and mode or mode_map[mode]
+        end,
+      }
+      opts.sections.lualine_z = { "fileformat", "encoding" }
+      opts.sections.lualine_c = {
+        {
+          "diagnostics",
+          symbols = {
+            error = icons.diagnostics.Error,
+            warn = icons.diagnostics.Warn,
+            info = icons.diagnostics.Info,
+            hint = icons.diagnostics.Hint,
+          },
+        },
+        { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+        { "filename", path = 1, symbols = { modified = "  ", readonly = "", unnamed = "" } },
+      }
+    end,
+  },
 }
 
 -- vim: fdm=indent fdl=1

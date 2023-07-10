@@ -56,6 +56,7 @@ return {
     event = "VeryLazy",
     init = function()
       vim.g.VM_leader = "<leader>m"
+      vim.g.VM_theme = "iceblue"
       local which_key = require("which-key")
       which_key.register({
         m = {

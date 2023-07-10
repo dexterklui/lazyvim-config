@@ -44,6 +44,8 @@ vim.keymap.del("n", "<S-h>")
 vim.keymap.del("n", "<S-l>")
 map("n", "<A-h>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
 map("n", "<A-l>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
+vim.keymap.del("n", "<A-j>")
+vim.keymap.del("n", "<A-k>")
 
 -- Spell checking
 which_key.register({
