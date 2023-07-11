@@ -147,7 +147,6 @@ return {
       ]])
     end,
     opts = function(_, opts)
-      local icons = require("lazyvim.config").icons
       opts.options.disabled_filetypes.winbar = {
         "dashboard",
         "alpha",
@@ -160,6 +159,7 @@ return {
         "gitcommit",
         "dqn",
       }
+
       opts.sections.lualine_a = {
         function()
           local vminfos = vim.fn["g:VMInfos"]()
@@ -175,20 +175,37 @@ return {
           return mode_map[mode] == nil and mode or mode_map[mode]
         end,
       }
-      opts.sections.lualine_z = { "encoding", "fileformat" }
-      opts.sections.lualine_c = {
-        {
-          "diagnostics",
-          symbols = {
-            error = icons.diagnostics.Error,
-            warn = icons.diagnostics.Warn,
-            info = icons.diagnostics.Info,
-            hint = icons.diagnostics.Hint,
-          },
-        },
-        { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-        { "filename", path = 1, symbols = { modified = "📝", readonly = "🚫", unnamed = "📛" } },
+
+      local section_c = opts.sections.lualine_c
+      section_c[#section_c] = nil -- Remove the section for nvim-navic
+      for _, x in ipairs(section_c) do
+        if x[1] == "filename" then
+          x.symbols = { modified = "📝", readonly = "🚫", unnamed = "📛" }
+          break
+        end
+      end
+
+      local section_y = opts.sections.lualine_y
+      for _, y in ipairs(section_y) do
+        y.separator = " "
+      end
+      section_y[#section_y].padding = 0
+      table.insert(section_y, {
+        function()
+          return "F" .. vim.b.fdl
+        end,
+        separator = "",
+        padding = { left = 0, right = 1 },
+        cond = function()
+          return vim.b.fdl ~= nil
+        end,
+      })
+
+      opts.sections.lualine_z = {
+        { "encoding", separator = " ", padding = { left = 1, right = 0 } },
+        { "fileformat", separator = " ", padding = { left = 0, right = 1 } },
       }
+
       opts.winbar = {
         lualine_c = {
           {
