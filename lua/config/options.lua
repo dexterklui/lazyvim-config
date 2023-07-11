@@ -12,6 +12,7 @@ vim.opt.clipboard = "" -- Use vim register
 vim.opt.wrap = true
 vim.opt.scrolloff = 3 -- Lines of context
 vim.opt.colorcolumn = "+1"
+vim.opt.winwidth = 87 -- Set the min nr of columns for current window
 vim.opt.showbreak = "∥" -- leading character that indicate a wrapped line
 vim.opt.lcs = "tab:‹ ›,trail:·,eol:¬,nbsp:_" -- adjust the text printed by :list
 vim.opt.list = true -- show "invisible" chars on screen like using :list

@@ -130,6 +130,9 @@ return {
       -- Keymaps
       local map = vim.keymap.set
       map("n", "z<space>", function()
+        if vim.b.fdl == nil then
+          vim.b.fdl = vim.wo.fdl
+        end
         vim.wo.fdl = 99
         require("ufo").closeFoldsWith(vim.b.fdl)
         print("actual_fdl: " .. vim.b.fdl)
@@ -145,11 +148,17 @@ return {
         require("ufo").closeAllFolds()
       end, { desc = "close all folds (ufo)" })
       map("n", "zr", function()
+        if vim.b.fdl == nil then
+          vim.b.fdl = vim.wo.fdl
+        end
         vim.wo.fdl = 99
         vim.b.fdl = vim.b.fdl + 1
         require("ufo").closeFoldsWith(vim.b.fdl)
       end, { desc = "open 1 level fold" }) -- closeAllFolds == closeFoldsWith(0)
       map("n", "zm", function()
+        if vim.b.fdl == nil then
+          vim.b.fdl = vim.wo.fdl
+        end
         vim.wo.fdl = 99
         if vim.b.fdl > 0 then
           vim.b.fdl = vim.b.fdl - 1
@@ -157,11 +166,17 @@ return {
         require("ufo").closeFoldsWith(vim.b.fdl)
       end, { desc = "close 1 level fold" }) -- closeAllFolds == closeFoldsWith(0)
       map("n", "zx", function()
+        if vim.b.fdl == nil then
+          vim.b.fdl = vim.wo.fdl
+        end
         vim.wo.fdl = 99
         require("ufo").closeFoldsWith(vim.b.fdl)
         vim.cmd.normal("16zo") -- XXX: Just open 16 times
       end, { desc = "Apply foldlevel then open at cursor" }) -- closeAllFolds == closeFoldsWith(0)
       map("n", "zX", function()
+        if vim.b.fdl == nil then
+          vim.b.fdl = vim.wo.fdl
+        end
         vim.wo.fdl = 99
         require("ufo").closeFoldsWith(vim.b.fdl)
       end, { desc = "Apply foldlevel then open at cursor" }) -- closeAllFolds == closeFoldsWith(0)
