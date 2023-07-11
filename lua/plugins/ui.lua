@@ -171,6 +171,18 @@ return {
           vim.lsp.buf.hover()
         end
       end, { desc = "peek fold / hover" })
+      map("n", "<leader>z", ":Foldufo ", { desc = "Set fold level" })
+
+      -- Commands
+      vim.api.nvim_create_user_command("Foldufo", function(cmd_opts)
+        local fdl = cmd_opts.args and tonumber(cmd_opts.args) or 0
+        vim.wo.fdl = 99
+        vim.b.fdl = fdl
+        print("actual_fdl: " .. fdl)
+        require("ufo").closeFoldsWith(fdl)
+      end, {
+        nargs = "?",
+      })
 
       -- Fold options
       vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
@@ -187,7 +199,6 @@ return {
             vim.wo.fdl = 99
           end
           vim.wo.fdc = "1"
-          print("actual_fdl: " .. vim.b.fdl)
         end,
         group = dqAugUfo,
         pattern = {
