@@ -160,6 +160,10 @@ return {
         "dqn",
       }
 
+      --                       │
+      opts.options.component_separators = { left = "", right = "" }
+      opts.options.section_separators = { left = "", right = "" }
+
       opts.sections.lualine_a = {
         function()
           local vminfos = vim.fn["g:VMInfos"]()

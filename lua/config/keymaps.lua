@@ -48,6 +48,7 @@ map("n", "<A-l>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
 keydel("n", "<A-j>")
 keydel("n", "<A-k>")
 map("n", "<A-/>", "/\\v", { desc = "Very magic search" })
+map("i", "<A-d>", "<C-k>", { desc = "Digraph" })
 
 -- Spell checking
 which_key.register({
