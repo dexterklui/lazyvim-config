@@ -18,6 +18,7 @@ local function map(mode, lhs, rhs, opts)
   end
 end
 local which_key = require("which-key")
+local keydel = vim.keymap.del
 
 -- User Commands {{{1
 --------------------------------------------------
@@ -40,12 +41,13 @@ vim.api.nvim_create_user_command(
 -- User keymaps {{{1
 --------------------------------------------------
 map("n", "<Leader>fd", "<cmd>DiffOrig<CR>", { desc = difforig_desc })
-vim.keymap.del("n", "<S-h>")
-vim.keymap.del("n", "<S-l>")
+keydel("n", "<S-h>")
+keydel("n", "<S-l>")
 map("n", "<A-h>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
 map("n", "<A-l>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
-vim.keymap.del("n", "<A-j>")
-vim.keymap.del("n", "<A-k>")
+keydel("n", "<A-j>")
+keydel("n", "<A-k>")
+map("n", "<A-/>", "/\\v", { desc = "Very magic search" })
 
 -- Spell checking
 which_key.register({
