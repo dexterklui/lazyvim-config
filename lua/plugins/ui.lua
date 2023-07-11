@@ -88,7 +88,12 @@ return {
   },
   { -- modern fold column -- kevinhwang91/nvim-ufo
     "kevinhwang91/nvim-ufo",
-    -- event = "BufRead",
+    enabled = true,
+    event = "BufRead",
+    init = function()
+      local keys = require("lazyvim.plugins.lsp.keymaps").get()
+      keys[#keys + 1] = { "K", false }
+    end,
     opts = {
       provider_selector = function()
         return { "treesitter", "indent" }
@@ -124,32 +129,43 @@ return {
     config = function(_, opts)
       -- Keymaps
       local map = vim.keymap.set
+      map("n", "z<space>", function()
+        vim.wo.fdl = 99
+        require("ufo").closeFoldsWith(vim.b.fdl)
+        print("actual_fdl: " .. vim.b.fdl)
+      end, { desc = "open all folds (ufo)" })
       map("n", "zR", function()
+        vim.wo.fdl = 99
         vim.b.fdl = 10
         require("ufo").openAllFolds()
       end, { desc = "open all folds (ufo)" })
       map("n", "zM", function()
+        vim.wo.fdl = 99
         vim.b.fdl = 0
         require("ufo").closeAllFolds()
       end, { desc = "close all folds (ufo)" })
       map("n", "zr", function()
+        vim.wo.fdl = 99
         vim.b.fdl = vim.b.fdl + 1
         require("ufo").closeFoldsWith(vim.b.fdl)
       end, { desc = "open 1 level fold" }) -- closeAllFolds == closeFoldsWith(0)
       map("n", "zm", function()
+        vim.wo.fdl = 99
         if vim.b.fdl > 0 then
           vim.b.fdl = vim.b.fdl - 1
         end
         require("ufo").closeFoldsWith(vim.b.fdl)
       end, { desc = "close 1 level fold" }) -- closeAllFolds == closeFoldsWith(0)
       map("n", "zx", function()
+        vim.wo.fdl = 99
         require("ufo").closeFoldsWith(vim.b.fdl)
-        vim.cmd.normal("10zo") -- XXX: Just open 10 times
+        vim.cmd.normal("16zo") -- XXX: Just open 16 times
       end, { desc = "Apply foldlevel then open at cursor" }) -- closeAllFolds == closeFoldsWith(0)
       map("n", "zX", function()
+        vim.wo.fdl = 99
         require("ufo").closeFoldsWith(vim.b.fdl)
       end, { desc = "Apply foldlevel then open at cursor" }) -- closeAllFolds == closeFoldsWith(0)
-      map("n", "<leader>k", function()
+      map("n", "K", function()
         local winid = require("ufo").peekFoldedLinesUnderCursor()
         if not winid then
           vim.lsp.buf.hover()
@@ -179,6 +195,10 @@ return {
           "*.md",
           "*.lua",
           "*.js",
+          "*.dqn",
+          "*.c",
+          "*.h",
+          "*.cpp",
         },
       })
 
