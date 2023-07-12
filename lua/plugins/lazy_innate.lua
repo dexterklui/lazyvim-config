@@ -158,6 +158,7 @@ return {
         "Trouble",
         "gitcommit",
         "dqn",
+        "man",
       }
 
       --                       │
