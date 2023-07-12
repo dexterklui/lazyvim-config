@@ -185,10 +185,58 @@ return {
       section_c[#section_c] = nil -- Remove the section for nvim-navic
       for _, x in ipairs(section_c) do
         if x[1] == "filename" then
-          x.symbols = { modified = "📝", readonly = "🚫", unnamed = "📛" }
+          -- x.symbols = { modified = "📝", readonly = "🚫", unnamed = "📛" }
+          x.separator = ""
+          x.padding = { left = 1, right = 0 }
+          x.file_status = false
           break
         end
       end
+      section_c[#section_c + 1] = { -- Component for modified icon
+        function()
+          return "󰝒"
+        end,
+        -- color = "Character",
+        color = { fg = "#C3E88D" },
+        cond = function()
+          return vim.bo.modified
+        end,
+        padding = { left = 1, right = 0 },
+        separator = "",
+      }
+      section_c[#section_c + 1] = { -- Component for readonly icon
+        function()
+          return ""
+        end,
+        color = { fg = "#4fd6be" },
+        cond = function()
+          return vim.bo.readonly
+        end,
+        padding = { left = 1, right = 0 },
+        separator = "",
+      }
+      section_c[#section_c + 1] = { -- Component for unmodifiable icon
+        function()
+          return "󰏯"
+        end,
+        color = { fg = "#ff757f" },
+        cond = function()
+          return not vim.bo.modifiable
+        end,
+        padding = { left = 1, right = 0 },
+        separator = "",
+      }
+      section_c[#section_c + 1] = { -- Component for noname icon
+        function()
+          return "󱈠"
+        end,
+        color = { fg = "#6C8DD5" },
+        cond = function()
+          return vim.fn.bufname() == ""
+        end,
+        padding = { left = 1, right = 0 },
+        separator = "",
+      }
 
       local section_y = opts.sections.lualine_y
       for _, y in ipairs(section_y) do
