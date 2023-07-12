@@ -1,5 +1,5 @@
 return {
-  {
+  { -- pwntester/octo.nvim
     "pwntester/octo.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
