@@ -49,6 +49,21 @@ keydel("n", "<A-j>")
 keydel("n", "<A-k>")
 map("n", "<A-/>", "/\\v", { desc = "Very magic search" })
 map("i", "<A-d>", "<C-k>", { desc = "Digraph" })
+map("n", "<Leader>uq", function()
+  if vim.b.dq_formatexpr == nil or vim.b.dq_formateprg == nil then
+    vim.b.dq_formatexpr = vim.bo.formatexpr
+    vim.b.dq_formateprg = vim.bo.formatprg
+    vim.bo.formatexpr = ""
+    vim.bo.formatprg = ""
+    print("Using internal range format method (with `gq`)")
+  else
+    vim.bo.formatexpr = vim.b.dq_formatexpr
+    vim.bo.formatprg = vim.b.dq_formateprg
+    vim.b.dq_formatexpr = nil
+    vim.b.dq_formateprg = nil
+    print("Using original range format method (with `gq`)")
+  end
+end, { desc = "Toggle internal range format (gq)" })
 
 -- Spell checking
 which_key.register({
