@@ -315,6 +315,13 @@ return {
       table.insert(opts.sources, nls.builtins.code_actions.shellcheck)
     end,
   },
+  { -- akinsho/bufferline.nvim -- add keys and always show bufline
+    "akinsho/bufferline.nvim",
+    keys = {
+      { "<A-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev buffer" },
+      { "<A-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Next buffer" },
+    },
+  },
 }
 
 -- vim: fdm=indent fdl=1

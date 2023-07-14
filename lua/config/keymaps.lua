@@ -43,8 +43,6 @@ vim.api.nvim_create_user_command(
 map("n", "<Leader>fd", "<cmd>DiffOrig<CR>", { desc = difforig_desc })
 keydel("n", "<S-h>")
 keydel("n", "<S-l>")
-map("n", "<A-h>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
-map("n", "<A-l>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
 keydel("n", "<A-j>")
 keydel("n", "<A-k>")
 map("n", "<A-/>", "/\\v", { desc = "Very magic search" })

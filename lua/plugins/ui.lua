@@ -249,6 +249,11 @@ return {
       },
     },
   },
+  { -- tiagovla/scope.nvim -- scope buffers to their tab
+    "tiagovla/scope.nvim",
+    event = "VeryLazy",
+    opts = {},
+  },
 }
 
 -- vim: fdm=indent fdl=1
