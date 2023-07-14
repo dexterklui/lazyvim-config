@@ -307,6 +307,14 @@ return {
       }
     end,
   },
+  { -- jose-elias-alvarez/null-ls.nvim -- add shellcheck
+    "jose-elias-alvarez/null-ls.nvim",
+    opts = function(_, opts)
+      local nls = require("null-ls")
+      table.insert(opts.sources, nls.builtins.diagnostics.shellcheck)
+      table.insert(opts.sources, nls.builtins.code_actions.shellcheck)
+    end,
+  },
 }
 
 -- vim: fdm=indent fdl=1

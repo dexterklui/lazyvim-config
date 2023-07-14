@@ -42,7 +42,6 @@ return {
       { "<c-right>", "<cmd>lua require('tmux').resize_right()<cr>", desc = "Resize window to right" },
     },
   },
-
   { -- norcalli/nvim-colorizer.lua
     "norcalli/nvim-colorizer.lua",
     opts = {
