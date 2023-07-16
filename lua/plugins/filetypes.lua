@@ -6,7 +6,22 @@ return {
     init = function()
       vim.g.mkdp_filetypes = { "markdown" }
     end,
-    ft = "markdown",
+    opts = {},
+    config = function()
+      local aug = vim.api.nvim_create_augroup("dqMarkdownPreview", {})
+      vim.api.nvim_create_autocmd("FileType", {
+        group = aug,
+        pattern = "markdown",
+        callback = function(_)
+          vim.keymap.set("n", "<Leader>cp", "<Cmd>MarkdownPreviewToggle<CR>", {
+            buffer = true,
+            desc = "Toggle Markdown Preview",
+          })
+          vim.b.undo_ftplugin = vim.b.undo_ftplugin .. "| nunmap <buffer> <Leader>cp"
+        end,
+        desc = "Add keymap to toggle Markdown Preview",
+      })
+    end,
   },
 
   -- Web development (HTML, CSS, Javascript)
