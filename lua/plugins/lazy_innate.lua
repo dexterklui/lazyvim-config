@@ -321,6 +321,23 @@ return {
       { "<A-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev buffer" },
       { "<A-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Next buffer" },
     },
+    opts = { options = { always_show_bufferline = true } },
+    config = function(_, opts)
+      require("bufferline").setup(opts)
+      local aug = vim.api.nvim_create_augroup("dqBufferline", {})
+      -- Since set always show bufferline, the following make it invisible
+      -- in title (alpha) page
+      vim.api.nvim_create_autocmd("BufWinLeave", {
+        group = aug,
+        pattern = "*",
+        callback = function()
+          vim.cmd("hi BufferLineFill guibg=#12131d")
+        end,
+        once = true,
+        desc = "Make bufferline invisible in cover page",
+      })
+      vim.cmd("hi BufferLineFill guibg=NONE")
+    end,
   },
 }
 
