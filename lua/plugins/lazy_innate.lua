@@ -23,21 +23,6 @@ return {
       opts.completion = { completeopt = "menu,menuone,noselect" }
     end,
   },
-  { -- nvim-neo-tree/neo-tree.nvim -- auto close neo-tree on file open
-    "nvim-neo-tree/neo-tree.nvim",
-    opts = function(_, opts)
-      if opts["event_hadnlers"] == nil then
-        opts["event_handlers"] = {}
-      end
-      table.insert(opts.event_handlers, {
-        event = "file_opened",
-        handler = function()
-          -- auto close
-          require("neo-tree").close_all()
-        end,
-      })
-    end,
-  },
   { -- L3MON4D3/LuaSnip -- Leaving snippet region makes <Tab> no longer jump back in
     "L3MON4D3/LuaSnip",
     config = function(_, opts)
@@ -245,11 +230,13 @@ return {
       section_y[#section_y].padding = 0
       table.insert(section_y, {
         function()
+          ---@diagnostic disable-next-line: undefined-field
           return "F" .. vim.b.fdl
         end,
         separator = "",
         padding = { left = 0, right = 1 },
         cond = function()
+          ---@diagnostic disable-next-line: undefined-field
           return vim.b.fdl ~= nil
         end,
       })
